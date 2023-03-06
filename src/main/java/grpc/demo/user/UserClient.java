@@ -28,7 +28,7 @@ public class UserClient {
 		
 		try {
 			String name = "Divyaa";
-			String password = "Divyaa";
+			String password = "Password123";
 			
 			LoginRequest request = LoginRequest.newBuilder().setUsername(name).setPassword(password).build();
 			

@@ -44,20 +44,18 @@ public class UserServer extends UserServiceImplBase{
 		System.out.println("receiving Login request");
 		String name = request.getUsername();
 		String password = request.getPassword();
-		//System.out.println(name);
-		//System.out.println(password);
+		System.out.println(name);
+		System.out.println(password);
 		
 		String loginresult;
-		System.out.println(name);
-		if(name == password){
-			
+		if((name.equals("Divyaa")) && (password.equals("Password123")) ) {
 			loginresult = "Login Success";
 		}
 		else {
-			loginresult = "Login Failed";
+			loginresult = "Login Failure";
 		}
-		
-		LoginResponse reply = LoginResponse.newBuilder().setResponseMessage(request.getUsername() + " " + loginresult).build();
+	
+		LoginResponse reply = LoginResponse.newBuilder().setResponseMessage("Username: " + request.getUsername() + " -- " + loginresult).build();
 		responseObserver.onNext(reply);
 	     
 	    responseObserver.onCompleted();
