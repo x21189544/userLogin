@@ -47,15 +47,40 @@ public class UserServer extends UserServiceImplBase{
 		System.out.println(name);
 		System.out.println(password);
 		
-		String loginresult;
+		String loginResult;
+		int loginErrorCode;
 		if((name.equals("Divyaa")) && (password.equals("Password123")) ) {
-			loginresult = "Login Success";
+			loginResult = "Login Success";
+			loginErrorCode = 1;
 		}
 		else {
-			loginresult = "Login Failure";
+			loginResult = "Login Failure";
+			loginErrorCode = 2;
 		}
 	
-		LoginResponse reply = LoginResponse.newBuilder().setResponseMessage("Username: " + request.getUsername() + " -- " + loginresult).build();
+		LoginResponse reply = LoginResponse.newBuilder().setResponseMessage("Username: " + request.getUsername() + " -- " + loginResult).setResponseCode(loginErrorCode).build();
+		responseObserver.onNext(reply);
+	     
+	    responseObserver.onCompleted();
+	}
+	
+	public void logout(LogoutRequest request, StreamObserver<LogoutResponse> responseObserver) {
+		System.out.println("receiving Logout request");
+		String name = request.getUsername();
+		
+		String logoutResult;
+		int logoutErrorCode;
+		if(name.equals("Divyaa")) {
+			logoutResult = "Logout Success";
+			logoutErrorCode = 1;
+		}
+		else {
+			logoutResult = "User Not Logged In";
+			logoutErrorCode = 2;
+		}
+		System.out.println("Logout Error Code is: " + logoutErrorCode);
+		LogoutResponse reply = LogoutResponse.newBuilder().setResponseMessage(logoutResult).setResponseCode(logoutErrorCode).build();
+		
 		responseObserver.onNext(reply);
 	     
 	    responseObserver.onCompleted();
